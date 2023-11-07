@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Transactions {
+    id              Int            @id @default(autoincrement())
+    createdAt       DateTime       @default(now()) @map("created_at")
+    updatedAt       DateTime       @updatedAt @map("updated_at")
+    cost            Int
+    costCenterId    String         @map("cost_center_id")
+    constCenter     CostCenters    @relation(fields: [costCenterId], references: [id])
+    payAt           DateTime       @map("pay_at")
+    costElementId   String         @map("cost_element_id")
+    costElement     CostElements   @relation(fields: [costElementId], references: [id])
+    status          String         @default("waiting")
+    paymentMethodId String         @map("payment_method_id")
+    paymentMethod   PaymentMethods @relation(fields: [paymentMethodId], references: [id])
+    content         String
+
+    @@map("transactions")
+}
+
+model CostGroups {
+    id           String         @id
+    name         String
+    createdAt    DateTime       @default(now()) @map("created_at")
+    updatedAt    DateTime       @updatedAt @map("updated_at")
+    CostElements CostElements[]
+
+    @@map("cost_groups")
+}
+
+model CostElements {
+    id           String         @id
+    name         String
+    costGroupId  String         @map("cost_group_id")
+    costGroup    CostGroups     @relation(fields: [costGroupId], references: [id])
+    createdAt    DateTime       @default(now()) @map("created_at")
+    updatedAt    DateTime       @updatedAt @map("updated_at")
+    Transactions Transactions[]
+
+    @@map("cost_elements")
+}
+
+model CostCenters {
+    id           String         @id
+    name         String
+    createdAt    DateTime       @default(now()) @map("created_at")
+    updatedAt    DateTime       @updatedAt @map("updated_at")
+    Transactions Transactions[]
+
+    @@map("cost_centers")
+}
+
+model PaymentMethods {
+    id           String         @id
+    name         String
+    createdAt    DateTime       @default(now()) @map("created_at")
+    updatedAt    DateTime       @updatedAt @map("updated_at")
+    Transactions Transactions[]
+
+    @@map("payment_methods")
+}
