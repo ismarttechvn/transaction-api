@@ -11,6 +11,10 @@ const CodeData = {
     code: 500,
     message: "Internal error",
   },
+  NOT_FOUND_DOCUMENT: {
+    code: 404,
+    message: "Document not found",
+  },
 };
 
 exports.Code = CodeData;

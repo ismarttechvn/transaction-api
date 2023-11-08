@@ -10,6 +10,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 
 const transactionApi = require("./api/transaction");
+const metaApi = require("./api/meta");
 // TOTO: insert router
 // const docsRouter = require('./routes/docsRouter');
 
@@ -45,7 +46,7 @@ app.use(xss()); // XSS
 app.use(
   hpp({
     whitelist: ["duration"],
-  }),
+  })
 ); // parameter pollution
 
 // Serving static files
@@ -55,13 +56,18 @@ app.use(express.static(path.join("__dirname", "public")));
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 } else {
-  app.use(morgan("combined", {
-    skip(req, res) { return res.statusCode < 400; }, // only log error responses
-  }));
+  app.use(
+    morgan("combined", {
+      skip(req, res) {
+        return res.statusCode < 400;
+      }, // only log error responses
+    })
+  );
 }
 
 // 2 ROUTES
 app.use("/api/v1/", transactionApi);
+app.use("/api/v1/", metaApi);
 // TODO: use route here
 // app.use('/api/v1/api-docs', docsRouter);
 

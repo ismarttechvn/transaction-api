@@ -1,1 +1,2 @@
-module.exports = (fn) => (request, response, next) => fn(request, response, next).catch(next);
+module.exports = (fn) => (request, response, next) =>
+  fn(request, response, next).catch(next);

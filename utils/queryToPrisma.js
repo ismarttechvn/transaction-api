@@ -16,7 +16,13 @@ const validOperators = [
 ];
 
 function isMultiValOp(paramOp) {
-  return /in/.test(paramOp) || paramOp === "in" || paramOp === "notIn" || paramOp === "hasEvery" || paramOp === "hasSome";
+  return (
+    /in/.test(paramOp) ||
+    paramOp === "in" ||
+    paramOp === "notIn" ||
+    paramOp === "hasEvery" ||
+    paramOp === "hasSome"
+  );
 }
 
 const defaultAutoDetectTypes = [
@@ -79,10 +85,10 @@ module.exports = function (params, fieldsArg, validate) {
     }
 
     /*
-    * Split a single value into an array of values if the operator is a multi-valued one.
-    * Also convert a single value to an array so that we can deal with it consistently,
-    * while further processing each value.
-    */
+     * Split a single value into an array of values if the operator is a multi-valued one.
+     * Also convert a single value to an array so that we can deal with it consistently,
+     * while further processing each value.
+     */
     let paramValues = ele[1];
     if (!Array.isArray(paramValues)) {
       if (isMultiValOp(paramOp)) {
@@ -95,8 +101,8 @@ module.exports = function (params, fieldsArg, validate) {
     }
 
     /*
-    * Find the data type of the parameter/field. If we have to validate
-    */
+     * Find the data type of the parameter/field. If we have to validate
+     */
     let dataTypeT = "string";
     if (fields[paramName]) {
       if (fields[paramName].dataType) {
@@ -109,8 +115,8 @@ module.exports = function (params, fieldsArg, validate) {
       for (let i = 0; i < autoDetectTypes.length; i += 1) {
         const ad = autoDetectTypes[i];
         if (
-          (ad.valuePattern && ad.valuePattern.test(paramValues[0]))
-          || (ad.fieldPattern && ad.fieldPattern.test(paramName))
+          (ad.valuePattern && ad.valuePattern.test(paramValues[0])) ||
+          (ad.fieldPattern && ad.fieldPattern.test(paramName))
         ) {
           dataTypeT = ad.dataType;
           break;
@@ -119,8 +125,8 @@ module.exports = function (params, fieldsArg, validate) {
     }
 
     /*
-    * Data type conversions
-    */
+     * Data type conversions
+     */
     const converter = dataTypeConverters[dataTypeT];
     try {
       paramValues = paramValues.map(converter);
@@ -134,9 +140,10 @@ module.exports = function (params, fieldsArg, validate) {
     /**
      * Form the filter, the operator tells us how to deal with the paramValues.
      */
-    const value = paramValues.length > 1 || isMultiValOp(paramOp)
-      ? paramValues
-      : paramValues[0];
+    const value =
+      paramValues.length > 1 || isMultiValOp(paramOp)
+        ? paramValues
+        : paramValues[0];
 
     if (!filter[paramName]) {
       filter[paramName] = {
@@ -162,9 +169,8 @@ module.exports = function (params, fieldsArg, validate) {
 
   const sort = {};
   const sortFieldStr = params.__sort ? params.__sort : "-createdAt";
-  const sortSpecs = typeof sortFieldStr === "string"
-    ? sortFieldStr.split(",")
-    : sortFieldStr;
+  const sortSpecs =
+    typeof sortFieldStr === "string" ? sortFieldStr.split(",") : sortFieldStr;
   sortSpecs.forEach((s) => {
     let direction = "asc";
     let sortField = s;

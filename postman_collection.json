@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "a10d6617-4e3a-4981-8f2b-53a49371b29c",
+		"name": "Transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9087201"
+	},
+	"item": [
+		{
+			"name": "cost element get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localUrl}}/api/v1/cost-element/1",
+					"host": [
+						"{{localUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cost-element",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transaction get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localUrl}}/api/v1/transaction/",
+					"host": [
+						"{{localUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transaction create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cost\": 10000,\r\n    \"costCenterId\": 1,\r\n    \"payAt\": \"2023-11-10\",\r\n    \"costElementId\": 1,\r\n    \"paymentMethodId\": 1,\r\n    \"content\" : \"test content\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localUrl}}/api/v1/transaction/",
+					"host": [
+						"{{localUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transaction update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\" : \"test update 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localUrl}}/api/v1/transaction/1",
+					"host": [
+						"{{localUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transaction get one",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\" : \"test update 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localUrl}}/api/v1/transaction/1",
+					"host": [
+						"{{localUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
