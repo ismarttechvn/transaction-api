@@ -6,7 +6,7 @@ exports.create = Joi.object({
   payAt: Joi.date().required(),
   costElementId: Joi.number().required(),
   status: Joi.string()
-    .valid("waiting", "paid", "cancelled", "processing")
+    .valid("waiting", "paid", "cancelled")
     .default("waiting"),
   paymentMethodId: Joi.number().required(),
   content: Joi.string().allow("", null),
@@ -18,7 +18,7 @@ exports.update = Joi.object({
   payAt: Joi.date(),
   costElementId: Joi.number(),
   status: Joi.string()
-    .valid("waiting", "paid", "cancelled", "processing")
+    .valid("waiting", "paid", "cancelled")
     .default("waiting"),
   paymentMethodId: Joi.number(),
   content: Joi.string().allow("", null),
